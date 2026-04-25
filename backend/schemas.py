@@ -56,6 +56,7 @@ class Material(BaseModel):
     catalog: str = ""
     quantity: str = ""
     unit_cost_usd: float = 0.0
+    url: str = ""
 
 
 class BudgetLineItem(BaseModel):

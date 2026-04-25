@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from . import llm_client
 from .retrieval import orchestrator
+from .retrieval.supplier_lookup import enrich_materials
 from .schemas import (
     ExperimentPlan,
     GeneratePlanRequest,
@@ -123,7 +124,11 @@ def generate_plan(req: GeneratePlanRequest):
         raise HTTPException(status_code=502, detail=f"LLM plan generation failed: {e}")
 
     try:
-        return ExperimentPlan(**data)
+        plan = ExperimentPlan(**data)
     except Exception as e:
         logger.exception("plan schema validation failed; payload=%s", data)
         raise HTTPException(status_code=500, detail=f"Plan did not match schema: {e}")
+
+    logger.info("Enriching %d materials via Tavily", len(plan.materials))
+    enriched = enrich_materials(plan.materials)
+    return plan.model_copy(update={"materials": enriched})

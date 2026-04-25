@@ -18,7 +18,8 @@ You MUST output a single valid JSON object with this exact shape:
       "supplier": "Thermo Fisher | Sigma-Aldrich | Promega | Qiagen | IDT | ATCC | Addgene | NEB | Bio-Rad | other",
       "catalog": "supplier catalog number, or 'TBD' if unknown — do NOT fabricate numbers",
       "quantity": "e.g. 1 vial, 500 mL, 100 µg",
-      "unit_cost_usd": 0
+      "unit_cost_usd": 0,
+      "url": ""
     }
   ],
   "budget": {

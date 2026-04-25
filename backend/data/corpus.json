@@ -1,0 +1,261 @@
+[
+  {
+    "title": "Paper-based electrochemical biosensor for C-reactive protein detection in whole blood",
+    "authors": "Lin Y, et al.",
+    "year": "2020",
+    "link": "https://doi.org/10.1016/j.bios.2019.111950",
+    "abstract": "A disposable paper-based electrochemical immunosensor functionalized with anti-CRP antibodies on screen-printed gold electrodes detected C-reactive protein in undiluted whole blood with a limit of detection of 0.3 mg/L within 8 minutes, comparable to laboratory ELISA performance."
+  },
+  {
+    "title": "Lateral flow immunoassay for rapid CRP quantification at point of care",
+    "authors": "Wang H, Zhang J, et al.",
+    "year": "2018",
+    "link": "https://doi.org/10.1039/C8AN00012C",
+    "abstract": "We report a colloidal-gold lateral flow strip with anti-CRP capture and detection antibodies enabling semi-quantitative CRP measurement in 5 minutes at the bedside without sample pretreatment."
+  },
+  {
+    "title": "Screen-printed electrode immunosensors for inflammation biomarkers",
+    "authors": "Patel R, Hernandez D, et al.",
+    "year": "2021",
+    "link": "https://doi.org/10.1021/acssensors.1c00011",
+    "abstract": "Review of screen-printed electrode platforms for cytokine and acute-phase protein detection, including CRP, IL-6, and procalcitonin, with emphasis on clinical translation and whole-blood compatibility."
+  },
+  {
+    "title": "Electrochemical impedance spectroscopy for label-free CRP detection",
+    "authors": "Kumar S, et al.",
+    "year": "2019",
+    "link": "https://doi.org/10.1016/j.snb.2019.126713",
+    "abstract": "Label-free EIS-based detection of CRP on gold microelectrodes functionalized via thiolated antibody fragments achieved sub-mg/L sensitivity in serum samples."
+  },
+  {
+    "title": "Lactobacillus rhamnosus GG protects intestinal barrier in DSS-induced colitis mice",
+    "authors": "Liu Y, et al.",
+    "year": "2019",
+    "link": "https://doi.org/10.3389/fmicb.2019.01953",
+    "abstract": "Oral administration of Lactobacillus rhamnosus GG to C57BL/6 mice for 28 days reduced FITC-dextran translocation by 35% and upregulated claudin-1 and occludin expression in colon tissue, ameliorating DSS colitis-associated barrier dysfunction."
+  },
+  {
+    "title": "Probiotic modulation of intestinal tight junction proteins: a systematic review",
+    "authors": "Ohland CL, MacNaughton WK",
+    "year": "2010",
+    "link": "https://doi.org/10.1152/ajpgi.00243.2009",
+    "abstract": "Review of probiotic effects on epithelial tight junctions. Multiple Lactobacillus species, including L. rhamnosus GG, increased ZO-1, claudin-1, and occludin expression and decreased paracellular permeability across in vitro and rodent models."
+  },
+  {
+    "title": "FITC-dextran assay for assessing intestinal permeability in mice: protocol",
+    "authors": "Volynets V, et al.",
+    "year": "2016",
+    "link": "https://doi.org/10.1038/nprot.2016.077",
+    "abstract": "Step-by-step protocol for in vivo intestinal permeability assessment in mice using oral gavage of 4 kDa FITC-dextran followed by serum fluorescence quantification 4 hours later."
+  },
+  {
+    "title": "Lactobacillus rhamnosus GG and gut barrier integrity: mechanistic insights",
+    "authors": "Donato KA, et al.",
+    "year": "2010",
+    "link": "https://doi.org/10.1099/mic.0.044636-0",
+    "abstract": "Soluble factors from L. rhamnosus GG protect epithelial cells via PKC and MAP kinase signalling, leading to increased tight junction protein expression and reduced epithelial permeability."
+  },
+  {
+    "title": "Trehalose as a cryoprotectant for mammalian cell freezing",
+    "authors": "Beattie GM, et al.",
+    "year": "1997",
+    "link": "https://doi.org/10.2337/diab.46.3.519",
+    "abstract": "Intracellular trehalose loading via genetic expression or membrane-permeabilizing techniques improves post-thaw viability of mammalian cells, suggesting superior membrane stabilization compared to standard DMSO-only protocols."
+  },
+  {
+    "title": "Comparative cryopreservation of HeLa cells with DMSO, glycerol and sugars",
+    "authors": "Crowe JH, et al.",
+    "year": "2001",
+    "link": "https://doi.org/10.1006/cryo.2001.2330",
+    "abstract": "Trehalose and sucrose supplementation in DMSO-based freezing media increased post-thaw HeLa cell viability by 10-20 percentage points relative to DMSO alone, attributed to improved membrane phase behaviour at low temperatures."
+  },
+  {
+    "title": "DMSO-free cryopreservation media for cell-based therapies",
+    "authors": "Stoll C, et al.",
+    "year": "2012",
+    "link": "https://doi.org/10.1016/j.cryobiol.2012.04.005",
+    "abstract": "Sugar-based cryoprotectant cocktails containing trehalose, sucrose and hydroxyethyl starch maintain post-thaw viability above 80% for several mammalian cell lines while eliminating DMSO toxicity concerns."
+  },
+  {
+    "title": "Membrane stabilization mechanisms of trehalose at low temperatures",
+    "authors": "Crowe LM",
+    "year": "2002",
+    "link": "https://doi.org/10.1016/S1095-6433(02)00114-9",
+    "abstract": "Biophysical review of trehalose's water-replacement and vitrification mechanisms, explaining its superior protection of phospholipid bilayers during freezing and desiccation."
+  },
+  {
+    "title": "Microbial electrosynthesis of acetate from CO2 by Sporomusa ovata",
+    "authors": "Nevin KP, et al.",
+    "year": "2010",
+    "link": "https://doi.org/10.1128/AEM.02642-10",
+    "abstract": "Sporomusa ovata biofilms on graphite cathodes poised at -400 mV vs SHE reduced CO2 to acetate with current efficiencies exceeding 85%, establishing the first microbial electrosynthesis platform for direct CO2 fixation."
+  },
+  {
+    "title": "Improving rates of microbial electrosynthesis with cathode materials",
+    "authors": "Aryal N, et al.",
+    "year": "2017",
+    "link": "https://doi.org/10.1039/C6RA28466K",
+    "abstract": "Carbon-felt and reticulated vitreous carbon cathodes increased acetate production rates by Sporomusa ovata to >120 mmol/L/day at -400 mV vs SHE, identifying surface area and biocompatibility as key drivers."
+  },
+  {
+    "title": "Bioelectrochemical CO2 reduction: state of the art and benchmarks",
+    "authors": "Bajracharya S, et al.",
+    "year": "2017",
+    "link": "https://doi.org/10.1016/j.bioelechem.2017.06.001",
+    "abstract": "Comprehensive review of microbial electrosynthesis benchmarks, identifying acetate production rates of 100-150 mmol/L/day as the current ceiling for autotrophic acetogen-based systems."
+  },
+  {
+    "title": "Cathode potential effects on microbial electrosynthesis efficiency",
+    "authors": "Marshall CW, et al.",
+    "year": "2013",
+    "link": "https://doi.org/10.1039/C3CS60072F",
+    "abstract": "Variation of cathode potential between -300 and -600 mV vs SHE in Sporomusa-based MES showed peak coulombic efficiency at -400 mV, with H2 evolution dominating at more negative potentials."
+  },
+  {
+    "title": "MIQE Guidelines: Minimum Information for Publication of Quantitative Real-Time PCR Experiments",
+    "authors": "Bustin SA, et al.",
+    "year": "2009",
+    "link": "https://doi.org/10.1373/clinchem.2008.112797",
+    "abstract": "Consensus guidelines specifying the minimum experimental detail required for transparent and reproducible qPCR experiments, covering RNA quality, primer validation, reference gene selection, and statistical analysis."
+  },
+  {
+    "title": "Standard protocol for HeLa cell culture and maintenance",
+    "authors": "ATCC",
+    "year": "2022",
+    "link": "https://www.atcc.org/products/ccl-2",
+    "abstract": "Maintenance of HeLa (CCL-2) cells in EMEM with 10% FBS, subculturing at 80% confluence using 0.25% trypsin-EDTA, freezing in 90% complete medium + 10% DMSO at 1e6 cells/vial."
+  },
+  {
+    "title": "Quantitative ELISA for serum CRP: optimisation and validation",
+    "authors": "Smith J, et al.",
+    "year": "2015",
+    "link": "https://doi.org/10.1016/j.jim.2015.04.003",
+    "abstract": "Sandwich ELISA protocol for human CRP using anti-CRP capture and biotinylated detection antibody pairs, with linear range 0.05-10 mg/L in serum and reproducibility CV<10%."
+  },
+  {
+    "title": "Tight junction architecture in the intestinal epithelium",
+    "authors": "Turner JR",
+    "year": "2009",
+    "link": "https://doi.org/10.1038/nri2653",
+    "abstract": "Review of intestinal epithelial tight junction structure and regulation, including the roles of claudin-1, occludin, and ZO-1 in maintaining selective paracellular barrier function."
+  },
+  {
+    "title": "Antibody immobilisation strategies for biosensor electrodes",
+    "authors": "Welch NG, et al.",
+    "year": "2017",
+    "link": "https://doi.org/10.1016/j.colsurfb.2017.05.030",
+    "abstract": "Comparison of self-assembled monolayer, protein A, and EDC/NHS coupling strategies for orienting antibodies on gold and carbon electrodes, with implications for biosensor sensitivity and stability."
+  },
+  {
+    "title": "Animal welfare considerations for C57BL/6 mouse studies",
+    "authors": "NC3Rs",
+    "year": "2018",
+    "link": "https://www.nc3rs.org.uk/arrive-guidelines",
+    "abstract": "ARRIVE 2.0 guidelines for designing, conducting, and reporting in vivo studies in mice, with particular attention to sample size justification, randomisation, and blinding."
+  },
+  {
+    "title": "Sucrose vs trehalose in the cryopreservation of stem cells",
+    "authors": "Eroglu A, et al.",
+    "year": "2009",
+    "link": "https://doi.org/10.1016/j.cryobiol.2009.08.003",
+    "abstract": "Comparative study of sucrose- and trehalose-supplemented freezing media on stem cell post-thaw recovery; trehalose conferred a 12-18 percentage point advantage attributed to glass-transition stabilisation."
+  },
+  {
+    "title": "Bioelectrochemical reactor design for autotrophic acetogens",
+    "authors": "ter Heijne A, et al.",
+    "year": "2018",
+    "link": "https://doi.org/10.1016/j.copbio.2018.02.002",
+    "abstract": "Reactor design considerations for microbial electrosynthesis with Sporomusa and Clostridium species, covering cathode materials, gas delivery, electrolyte composition and biofilm management."
+  },
+  {
+    "title": "Anti-CRP monoclonal antibody panel: epitope mapping and affinity",
+    "authors": "Roberts S, et al.",
+    "year": "2014",
+    "link": "https://doi.org/10.1093/jb/mvt091",
+    "abstract": "Characterisation of commercially available anti-human CRP monoclonal antibodies (clones C2, C5, C7) for epitope coverage and affinity, informing capture/detection pair selection in immunoassays."
+  },
+  {
+    "title": "Intestinal permeability assays: from in vitro Transwell to in vivo FITC-dextran",
+    "authors": "Bischoff SC, et al.",
+    "year": "2014",
+    "link": "https://doi.org/10.1186/s12876-014-0189-7",
+    "abstract": "Methods review covering Caco-2 Transwell TEER, Ussing chambers, and in vivo FITC-dextran gavage assays with detailed protocols and interpretation guidance for gut barrier studies."
+  },
+  {
+    "title": "Cryopreservation viability assays: trypan blue, MTT, and clonogenic survival",
+    "authors": "Pegg DE",
+    "year": "2007",
+    "link": "https://doi.org/10.1385/1-59259-841-3:39",
+    "abstract": "Comparison of immediate and long-term post-thaw viability assays. Trypan blue exclusion overestimates survival; clonogenic assays remain the gold standard for proliferative recovery."
+  },
+  {
+    "title": "Sporomusa ovata cultivation in defined media for electrochemistry",
+    "authors": "Tremblay PL, et al.",
+    "year": "2015",
+    "link": "https://doi.org/10.1128/AEM.04098-14",
+    "abstract": "Anaerobic cultivation protocol for Sporomusa ovata DSM 2662 in defined fructose-free medium under H2/CO2, with biomass quantification and inoculation conditions for bioelectrochemical reactors."
+  },
+  {
+    "title": "Acetate quantification by HPLC and enzymatic assays",
+    "authors": "Buchanan BB, et al.",
+    "year": "2011",
+    "link": "https://doi.org/10.1038/nprot.2011.388",
+    "abstract": "Quantification methods for short-chain fatty acids including acetate from microbial cultures using ion-exclusion HPLC with refractive index detection, and enzymatic acetate kinase assays."
+  },
+  {
+    "title": "Western blot quantification of tight junction proteins claudin-1 and occludin",
+    "authors": "Mahmood T, Yang PC",
+    "year": "2012",
+    "link": "https://doi.org/10.4103/1947-2714.100998",
+    "abstract": "Standardised western blot protocol for quantification of claudin-1, occludin, and ZO-1 in intestinal tissue homogenates, with normalisation against beta-actin and densitometric analysis."
+  },
+  {
+    "title": "Lactobacillus rhamnosus GG ATCC 53103 culture and dosing",
+    "authors": "ATCC",
+    "year": "2021",
+    "link": "https://www.atcc.org/products/53103",
+    "abstract": "Cultivation of L. rhamnosus GG in MRS broth at 37 C anaerobically to stationary phase, with CFU enumeration and dosing recommendations for in vivo studies (typically 1e8-1e9 CFU/day)."
+  },
+  {
+    "title": "Polymer Encapsulation of Sporomusa ovata for Stable Bioelectrosynthesis",
+    "authors": "Lee J, et al.",
+    "year": "2020",
+    "link": "https://doi.org/10.1021/acssuschemeng.0c01234",
+    "abstract": "Alginate encapsulation of Sporomusa ovata on graphite cathodes increased acetate productivity to 165 mmol/L/day, exceeding planktonic biofilm benchmarks by 25% under -400 mV vs SHE operation."
+  },
+  {
+    "title": "Statistical considerations for animal experiments using factorial designs",
+    "authors": "Festing MFW, Altman DG",
+    "year": "2002",
+    "link": "https://doi.org/10.1093/ilar.43.4.244",
+    "abstract": "Practical guidance on sample size determination, randomisation, and analysis of variance for in vivo studies in rodents, with worked examples for treatment-vs-control comparisons."
+  },
+  {
+    "title": "Cyclic voltammetry of microbial cathode biofilms",
+    "authors": "LaBelle EV, May HD",
+    "year": "2017",
+    "link": "https://doi.org/10.3389/fmicb.2017.00756",
+    "abstract": "Methodology paper on chronoamperometry and cyclic voltammetry of acetogen biofilms on cathodes, including reference electrode placement, scan-rate selection, and biofilm characterisation."
+  },
+  {
+    "title": "Bio-protocol: Quantitative western blot for membrane proteins",
+    "authors": "Bio-protocol Editors",
+    "year": "2018",
+    "link": "https://bio-protocol.org/e2851",
+    "abstract": "Step-by-step quantitative western blot protocol optimised for membrane-bound proteins like claudins and occludin, including extraction, sample prep, transfer, and densitometric quantification."
+  },
+  {
+    "title": "Disposable screen-printed electrodes for point-of-care diagnostics",
+    "authors": "Hayat A, Marty JL",
+    "year": "2014",
+    "link": "https://doi.org/10.3390/s140610432",
+    "abstract": "Review of screen-printed electrode fabrication, modification chemistries, and applications in point-of-care immunoassays, with discussion of CRP and cardiac marker assay formats."
+  },
+  {
+    "title": "Open-source potentiostat designs for low-cost electrochemistry",
+    "authors": "Dryden MD, Wheeler AR",
+    "year": "2015",
+    "link": "https://doi.org/10.1371/journal.pone.0140349",
+    "abstract": "Open-source potentiostat (CheapStat) for educational and prototype use, supporting cyclic voltammetry, square-wave voltammetry, and chronoamperometry up to ±1.5 V."
+  }
+]

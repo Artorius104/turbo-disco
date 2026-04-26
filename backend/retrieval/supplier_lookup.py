@@ -58,6 +58,61 @@ SUPPLIER_SEARCH_URL = {
 
 _SKIP_SUPPLIERS = {"other", ""}
 
+CATEGORY_RANGES = {
+    "Reagents":    (50, 500),
+    "Consumables": (50, 500),
+    "Kits":        (100, 1000),
+    "Equipment":   (1000, 10000),
+    "Animals":     (50, 500),
+}
+
+_KIT_KEYWORDS = ("kit", "assay", "elisa kit", "library prep", "purification kit",
+                 "transfection kit", "extraction kit", "cloning kit", "miniprep")
+_EQUIPMENT_KEYWORDS = ("centrifuge", "incubator", "spectrophotometer", "thermocycler",
+                       "pcr machine", "microscope", "shaker", "freezer", "balance",
+                       "pipette", "luminometer", "fluorimeter", "biosafety cabinet",
+                       "autoclave", "ph meter", "potentiostat", "bioreactor",
+                       "reactor", "hplc", "lc-ms", "gc-ms", "uplc",
+                       "chromatograph", "fluorometer", "plate reader",
+                       "electrode", "system", "instrument", "analyzer",
+                       "sequencer", "imager", "cytometer", "sonicator",
+                       "vortex", "rotor", "anaerobic chamber")
+_CONSUMABLE_KEYWORDS = ("tube", "tip", "plate", "dish", "flask", "filter", "membrane",
+                        "tubing", "swab", "syringe", "needle", "well plate", "petri")
+
+
+def _infer_category(name: str) -> str:
+    n = (name or "").lower()
+    if any(k in n for k in _KIT_KEYWORDS):
+        return "Kits"
+    if any(k in n for k in _EQUIPMENT_KEYWORDS):
+        return "Equipment"
+    if any(k in n for k in _CONSUMABLE_KEYWORDS):
+        return "Consumables"
+    return "Reagents"
+
+
+def _format_money(amount: float) -> str:
+    return f"${amount:,.0f}"
+
+
+def _heuristic_estimate(m: Material) -> Material:
+    cat = _infer_category(m.name)
+    lo, hi = CATEGORY_RANGES.get(cat, CATEGORY_RANGES["Reagents"])
+    mid = (lo + hi) / 2
+    supplier = _normalize_supplier(m.supplier) or "Sigma-Aldrich"
+    return Material(
+        name=m.name,
+        supplier=supplier,
+        catalog=m.catalog or "TBD",
+        quantity=m.quantity,
+        unit_cost_usd=mid,
+        cost_display=f"~${lo}–{hi} (est.)",
+        cost_source="estimated",
+        category=cat,  # type: ignore[arg-type]
+        url=m.url or _supplier_search_url(supplier, m.name),
+    )
+
 
 def _normalize_supplier(value: str) -> Optional[str]:
     if not value:
@@ -91,12 +146,19 @@ def _apply_catalog_match(m: Material) -> Optional[Material]:
     hit = catalog_lookup.match(m.name)
     if not hit:
         return None
+    cost = float(hit.get("unit_cost_usd") or 0.0)
+    cat = hit.get("category") or _infer_category(hit.get("canonical_name") or m.name)
+    if cat not in CATEGORY_RANGES and cat != "Other":
+        cat = _infer_category(hit.get("canonical_name") or m.name)
     return Material(
         name=hit.get("canonical_name") or m.name,
         supplier=hit.get("supplier", m.supplier),
         catalog=hit.get("catalog", "TBD"),
         quantity=m.quantity or hit.get("package_size", ""),
-        unit_cost_usd=float(hit.get("unit_cost_usd") or 0.0),
+        unit_cost_usd=cost,
+        cost_display=_format_money(cost) if cost > 0 else "unknown",
+        cost_source="catalog" if cost > 0 else "unknown",
+        category=cat,  # type: ignore[arg-type]
         url=hit.get("url", ""),
     )
 
@@ -188,15 +250,8 @@ def _extract_with_llm(materials: List[Material],
 
 
 def _final_fallback(m: Material) -> Material:
-    supplier = _normalize_supplier(m.supplier) or "Sigma-Aldrich"
-    return Material(
-        name=m.name,
-        supplier=supplier,
-        catalog="TBD",
-        quantity=m.quantity,
-        unit_cost_usd=0.0,
-        url=_supplier_search_url(supplier, m.name),
-    )
+    """Last-resort enrichment: heuristic price estimate by inferred category."""
+    return _heuristic_estimate(m)
 
 
 def enrich_materials(materials: List[Material]) -> List[Material]:
@@ -245,14 +300,28 @@ def enrich_materials(materials: List[Material]) -> List[Material]:
         for idx, m in needs_lookup:
             data = extraction.get(m.name)
             if data and data.get("url"):
-                enriched[idx] = Material(
-                    name=m.name,
-                    supplier=data["supplier"],
-                    catalog=data["catalog"] or "TBD",
-                    quantity=m.quantity,
-                    unit_cost_usd=float(data.get("unit_cost_usd") or 0.0),
-                    url=data["url"],
-                )
+                cost = float(data.get("unit_cost_usd") or 0.0)
+                cat = _infer_category(m.name)
+                if cost > 0:
+                    enriched[idx] = Material(
+                        name=m.name,
+                        supplier=data["supplier"],
+                        catalog=data["catalog"] or "TBD",
+                        quantity=m.quantity,
+                        unit_cost_usd=cost,
+                        cost_display=_format_money(cost),
+                        cost_source="web",
+                        category=cat,  # type: ignore[arg-type]
+                        url=data["url"],
+                    )
+                else:
+                    # web result with URL but no usable price → still apply heuristic
+                    est = _heuristic_estimate(m)
+                    enriched[idx] = est.model_copy(update={
+                        "supplier": data["supplier"] or est.supplier,
+                        "catalog": data["catalog"] or est.catalog,
+                        "url": data["url"] or est.url,
+                    })
             else:
                 still_missing.append((idx, m))
         needs_lookup = still_missing

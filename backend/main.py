@@ -8,9 +8,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response
 
 from . import feedback_store, llm_client, pdf_export
-from .retrieval import orchestrator, protocols_client
+from .retrieval import orchestrator, protocols_client, url_validator
 from .retrieval.supplier_lookup import enrich_materials
 from .schemas import (
+    Budget,
+    BudgetLineItem,
     ExperimentPlan,
     ExportPDFRequest,
     FeedbackRequest,
@@ -124,6 +126,118 @@ def literature_qc(req: LiteratureQCRequest):
     return LiteratureQCResponse(novelty=novelty, papers=paper_models, source=source)
 
 
+import re
+from pathlib import Path
+
+_REF_TOKEN_RE = re.compile(r"^(P|PR)\d+$", re.IGNORECASE)
+
+_RUBRIC_PATH = Path(__file__).parent / "data" / "experiment_plan_rubric.txt"
+_rubric_cache: str | None = None
+
+
+def _load_rubric() -> str:
+    """Load the experiment-plan rubric (parsed from experiment-plan.pdf) once."""
+    global _rubric_cache
+    if _rubric_cache is None:
+        try:
+            text = _RUBRIC_PATH.read_text(encoding="utf-8").strip()
+            _rubric_cache = f"RUBRIC (follow this structure and depth):\n{text}" if text else ""
+        except FileNotFoundError:
+            logger.info("Rubric file not found at %s — skipping injection", _RUBRIC_PATH)
+            _rubric_cache = ""
+    return _rubric_cache
+
+_MATERIAL_CATEGORIES = {"Reagents", "Consumables", "Kits", "Equipment", "Animals"}
+_NON_MATERIAL_CATEGORIES = {"Personnel", "Sequencing", "Other"}
+
+
+def _recompute_budget(plan: ExperimentPlan) -> ExperimentPlan:
+    """Compute total_usd from materials + LLM-supplied non-material line items.
+
+    Materials with cost_source == 'unknown' are excluded from totals (price unknown);
+    estimated/catalog/web prices are summed. Notes string surfaces estimated/unknown counts.
+    """
+    by_category: dict[str, float] = {}
+    n_estimated = 0
+    n_unknown = 0
+    n_known = 0
+    for m in plan.materials:
+        if m.cost_source == "unknown":
+            n_unknown += 1
+            continue
+        if m.cost_source == "estimated":
+            n_estimated += 1
+        else:
+            n_known += 1
+        cat = m.category if m.category in _MATERIAL_CATEGORIES else "Reagents"
+        by_category[cat] = by_category.get(cat, 0.0) + float(m.unit_cost_usd or 0.0)
+
+    materials_subtotal = sum(by_category.values())
+
+    # Carry over LLM-supplied non-material categories (Personnel, Sequencing, Animals, Other).
+    for li in plan.budget.line_items:
+        cat = (li.category or "").strip()
+        if cat in _NON_MATERIAL_CATEGORIES:
+            amt = float(li.amount_usd or 0.0)
+            # If LLM left it 0, apply a sane default tied to materials subtotal.
+            if amt <= 0 and materials_subtotal > 0:
+                amt = round(materials_subtotal * 0.25, -1)
+            by_category[cat] = by_category.get(cat, 0.0) + amt
+
+    # If LLM produced no Personnel line and we have a materials subtotal, add a default 1× materials.
+    if "Personnel" not in by_category and materials_subtotal > 0:
+        by_category["Personnel"] = round(materials_subtotal * 1.0, -1)
+
+    line_items = [
+        BudgetLineItem(category=cat, amount_usd=round(amt, 2))
+        for cat, amt in sorted(by_category.items(), key=lambda kv: -kv[1])
+        if amt > 0
+    ]
+    total = round(sum(li.amount_usd for li in line_items), 2)
+
+    notes_parts = []
+    if n_known:
+        notes_parts.append(f"{n_known} priced from catalog/web")
+    if n_estimated:
+        notes_parts.append(f"{n_estimated} estimated by category heuristic")
+    if n_unknown:
+        notes_parts.append(f"{n_unknown} unknown (excluded from total)")
+    notes = "; ".join(notes_parts) or "No materials priced."
+
+    return plan.model_copy(update={
+        "budget": Budget(total_usd=total, line_items=line_items, notes=notes),
+    })
+
+
+def _sanitize_step_refs(plan: ExperimentPlan) -> ExperimentPlan:
+    """Drop disallowed/dead URLs from protocol step references; keep tokens + live URLs."""
+    url_set: list[str] = []
+    for step in plan.protocol:
+        for r in step.references:
+            if r.startswith(("http://", "https://")):
+                url_set.append(r)
+    statuses = url_validator.validate_many(url_set) if url_set else {}
+
+    new_steps = []
+    for step in plan.protocol:
+        cleaned: list[str] = []
+        for r in step.references:
+            r = (r or "").strip()
+            if not r:
+                continue
+            if _REF_TOKEN_RE.match(r):
+                cleaned.append(r.upper())
+                continue
+            if r.startswith(("http://", "https://")):
+                if statuses.get(r) == "ok":
+                    cleaned.append(r)
+                else:
+                    cleaned.append("link unavailable")
+            # else: bare text reference — drop silently
+        new_steps.append(step.model_copy(update={"references": cleaned}))
+    return plan.model_copy(update={"protocol": new_steps})
+
+
 def _format_papers_for_prompt(papers: list[Paper]) -> str:
     if not papers:
         return "(no related papers retrieved)"
@@ -169,7 +283,7 @@ def generate_plan(req: GeneratePlanRequest):
         protocols_raw = []
     protocols = [Protocol(**p) for p in protocols_raw]
 
-    # Prior reviewer feedback
+    # Prior reviewer feedback (similarity-retrieved, low-priority context)
     try:
         prior_notes = feedback_store.relevant(req.hypothesis, parsed_dict, k=3)
     except Exception as e:
@@ -177,22 +291,38 @@ def generate_plan(req: GeneratePlanRequest):
         prior_notes = []
     prior_block = feedback_store.format_for_prompt(prior_notes)
 
-    user_parts = [
+    # Current-session feedback (top-priority — placed FIRST in user content)
+    inline_block = feedback_store.format_inline_feedback(
+        [it.model_dump() for it in req.inline_feedback],
+        req.previous_plan.model_dump() if req.previous_plan else None,
+    )
+
+    rubric_block = _load_rubric()
+
+    user_parts: list[str] = []
+    if inline_block:
+        user_parts.append(inline_block)
+    if rubric_block:
+        user_parts.append(rubric_block)
+    user_parts.extend([
         f"HYPOTHESIS:\n{req.hypothesis}",
         f"PARSED_HYPOTHESIS:\n{parsed_block}",
         f"RELATED_PAPERS (cite as P1, P2, ...):\n{_format_papers_for_prompt(req.papers)}",
         f"RELATED_PROTOCOLS (cite as PR1, PR2, ... or by URL):\n{_format_protocols_for_prompt(protocols)}",
-    ]
+    ])
     if prior_block:
         user_parts.append(prior_block)
     user_content = "\n\n".join(user_parts)
+
+    # Higher temperature when revising under feedback to encourage divergence.
+    temperature = 0.5 if inline_block else 0.3
 
     try:
         data = llm_client.chat_json(
             system_prompt=system_prompt,
             user_content=user_content,
             model=os.getenv("OPENAI_MODEL_PLAN", "gpt-4o"),
-            temperature=0.3,
+            temperature=temperature,
             max_tokens=4000,
         )
     except Exception as e:
@@ -205,12 +335,15 @@ def generate_plan(req: GeneratePlanRequest):
         logger.exception("plan schema validation failed; payload=%s", data)
         raise HTTPException(status_code=500, detail=f"Plan did not match schema: {e}")
 
-    logger.info("Enriching %d materials (catalog → Tavily → fallback)", len(plan.materials))
+    logger.info("Enriching %d materials (catalog → Tavily → heuristic)", len(plan.materials))
     enriched = enrich_materials(plan.materials)
-    return plan.model_copy(update={
+    plan = plan.model_copy(update={
         "materials": enriched,
         "protocols_used": protocols,
     })
+    plan = _recompute_budget(plan)
+    plan = _sanitize_step_refs(plan)
+    return plan
 
 
 @app.post("/feedback", response_model=FeedbackResponse)

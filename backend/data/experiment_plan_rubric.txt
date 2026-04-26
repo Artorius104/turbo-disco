@@ -1,0 +1,137 @@
+EXAMPLE EXPERIMENT PLAN (use as a structural and depth reference; the new plan must match this level of operational detail and section coverage, but be tailored to the user's hypothesis):
+
+Experiment Plan
+Generated 2026-04-26 11:33
+Hypothesis
+Introducing Sporomusa ovata into a bioelectrochemical system at a cathode potential of −400mV vs SHE will fix CO■ into
+acetate at a rate of at least 150 mmol/L/day, outperforming current biocatalytic carbon capture benchmarks by at least
+20%.
+Parsed hypothesis
+Field
+Value
+Intervention
+Introducing Sporomusa ovata into a bioelectrochemical system at a cathode potential of
+−400mV vs SHE
+Outcome
+fix CO■ into acetate at a rate of at least 150 mmol/L/day, outperforming current benchmarks
+by at least 20%
+Mechanism
+Sporomusa ovata utilizes electrochemical potential to drive CO■ fixation into acetate
+System
+bioelectrochemical system
+Measurement
+acetate concentration measurement
+Domain
+electrochemistry
+Keywords
+Sporomusa ovata, bioelectrochemical system, CO■ fixation, acetate production, cathode
+potential, carbon capture, biocatalysis
+Literature QC
+ SIMILAR WORK EXISTS
+Source: api:crossref
+P1. Sporomusa ovata as Catalyst for Bioelectrochemical Carbon Dioxide Reduction: A Review Across Disciplines From
+Microbiology to Process Engineering [link]
+Joana Madjarov, Ricardo Soares, Catarina M. Paquete, Ricardo O. Louro · 2022 · similarity 0.71
+P2. 3D bioprinting on cathodes in microbial electrosynthesis for increased acetate production rate using Sporomusa ovata
+[link]
+Adolf Krige, Ulrika Rova, Paul Christakopoulos · 2021 · similarity 0.64
+P3. Bioenergy Production in Bioelectrochemical System [link]
+Rajesh K. Srivastava · 2020 · similarity 0.51
+Related protocols
+PR1. Bioelectrochemical reactor setup for microbial electrosynthesis with Sporomusa ovata (JOVE) [link]
+Anaerobic two-chamber MES reactor build, cathode preparation, S. ovata inoculation, and acetate quantification.
+PR2. HPLC quantification of short-chain fatty acids (acetate, propionate, butyrate) (Bio-protocol) [link]
+Ion-exclusion HPLC with refractive index detection for SCFA quantification from microbial cultures and gut samples.
+
+Protocol
+Step 1. Prepare bioelectrochemical reactor (1 day)
+Assemble an anaerobic two-chamber MES reactor as described in PR1. Ensure the cathode is set to a potential of
+−400mV vs SHE.
+References: PR1
+Step 2. Prepare Sporomusa ovata culture (2 days)
+Inoculate Sporomusa ovata in an appropriate growth medium and incubate under anaerobic conditions at 30°C until an
+OD600 of 0.6 is reached.
+References: P1
+Step 3. Inoculate reactor with Sporomusa ovata (1 hour)
+Transfer the Sporomusa ovata culture into the cathode chamber of the reactor. Ensure the chamber is sealed to maintain
+anaerobic conditions.
+References: PR1
+Step 4. Operate reactor under experimental conditions (7 days)
+Maintain the reactor at a cathode potential of −400mV vs SHE. Continuously supply CO■ at a flow rate of 10 mL/min.
+Monitor the system for 7 days.
+References: P1, PR1
+Step 5. Quantify acetate production (2 hours per sample)
+Collect samples from the cathode chamber daily. Use ion-exclusion HPLC with refractive index detection to quantify
+acetate concentration as described in PR2.
+References: PR2
+Materials
+Name
+Supplier
+Catalog
+Qty
+Unit $
+URL
+Sporomusa ovata DSM 2662
+ATCC
+35899
+1 vial
+$395
+link
+Bioelectrochemical reactor
+setup
+Thermo
+Fisher
+TBD
+1 setup
+$0
+link
+CO■ gas cylinder
+Sigma-Aldrich
+NISTRM856
+3
+1 cylinder
+$0
+link
+HPLC system
+Thermo
+Fisher
+V-HORIZO
+N-BNDL
+1 system
+$1,731
+link
+Budget
+Total: $0
+Category
+Amount (USD)
+Reagents
+$0
+Consumables
+$0
+Equipment
+$0
+
+Timeline
+Phase
+Duration (weeks)
+Depends on
+Reactor setup and culture preparation
+1
+—
+Experimental run
+1
+Reactor setup and culture preparation
+Data analysis
+1
+Experimental run
+Validation
+Primary metric: Acetate production rate
+Success criteria: ≥150 mmol/L/day, outperforming benchmarks by ≥20%, p<0.05, n=3
+Controls:
+ No inoculation control
+ Baseline CO■ fixation rate
+References
+ P1: Sporomusa ovata as Catalyst for Bioelectrochemical Carbon Dioxide Reduction: A Review Across Disciplines From
+Microbiology to Process Engineering
+ PR1: Bioelectrochemical reactor setup for microbia
+...(truncated)

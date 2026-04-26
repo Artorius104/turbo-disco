@@ -43,6 +43,7 @@ class Protocol(BaseModel):
     source: str = ""
     link: str = ""
     summary: str = ""
+    link_status: Literal["ok", "unavailable", "unchecked"] = "unchecked"
 
 
 class LiteratureQCRequest(BaseModel):
@@ -69,6 +70,8 @@ class GeneratePlanRequest(BaseModel):
     hypothesis: str
     parsed: Optional[ParsedHypothesis] = None
     papers: List[Paper] = Field(default_factory=list)
+    inline_feedback: List["FeedbackItem"] = Field(default_factory=list)
+    previous_plan: Optional["ExperimentPlan"] = None
 
 
 class ProtocolStep(BaseModel):
@@ -79,12 +82,19 @@ class ProtocolStep(BaseModel):
     references: List[str] = Field(default_factory=list)
 
 
+MaterialCategory = Literal["Reagents", "Consumables", "Kits", "Equipment", "Animals", "Other"]
+CostSource = Literal["catalog", "web", "estimated", "unknown"]
+
+
 class Material(BaseModel):
     name: str
     supplier: str = ""
     catalog: str = ""
     quantity: str = ""
     unit_cost_usd: float = 0.0
+    cost_display: str = "unknown"
+    cost_source: CostSource = "unknown"
+    category: MaterialCategory = "Other"
     url: str = ""
 
 
@@ -96,6 +106,7 @@ class BudgetLineItem(BaseModel):
 class Budget(BaseModel):
     total_usd: float
     line_items: List[BudgetLineItem]
+    notes: str = ""
 
 
 class TimelinePhase(BaseModel):
@@ -143,3 +154,6 @@ class ExportPDFRequest(BaseModel):
     parsed: Optional[ParsedHypothesis] = None
     qc: Optional[LiteratureQCResponse] = None
     plan: ExperimentPlan
+
+
+GeneratePlanRequest.model_rebuild()

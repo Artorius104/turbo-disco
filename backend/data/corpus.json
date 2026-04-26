@@ -257,5 +257,29 @@
     "year": "2015",
     "link": "https://doi.org/10.1371/journal.pone.0140349",
     "abstract": "Open-source potentiostat (CheapStat) for educational and prototype use, supporting cyclic voltammetry, square-wave voltammetry, and chronoamperometry up to ±1.5 V."
+  },
+  {
+    "title": "Experiment Plan Rubric — Chunk 1",
+    "authors": "Internal",
+    "year": "2025",
+    "link": "",
+    "abstract": "Experiment Plan\nGenerated 2026-04-26 11:33\nHypothesis\nIntroducing Sporomusa ovata into a bioelectrochemical system at a cathode potential of −400mV vs SHE will fix CO■ into\nacetate at a rate of at least 150 mmol/L/day, outperforming current biocatalytic carbon capture benchmarks by at least\n20%.\nParsed hypothesis\nField\nValue\nIntervention\nIntroducing Sporomusa ovata into a bioelectrochemical system at a cathode potential of\n−400mV vs SHE\nOutcome\nfix CO■ into acetate at a rate of at least 150 mmol/L/day, outperforming current benchmarks\nby at least 20%\nMechanism\nSporomusa ovata utilizes electrochemical potential to drive CO■ fixation into acetate\nSystem\nbioelectrochemical system\nMeasurement\nacetate concentration measurement\nDomain\nelectrochemistry\nKeywords\nSporomusa ovata, bioelectrochemical system, CO■ fixation, acetate production, cathode\npotential, carbon capture, biocatalysis\nLiterature QC\n SIMILAR WORK EXISTS\nSource: api:crossref\nP1. Sporomusa ovata as Catalyst for Bioelectrochemical Carbon Dioxide Reduction: A Review Across Disciplines From\nMicrobiology to Process Engineering [link]\nJoana Madjarov, Ricardo Soares, Catarina M. Paquete, Ricardo O. Louro · 2022 · similarity 0.71\nP2. 3D bioprinting on cathodes in microbial electrosynthesis for increased acetate production rate using Sporomusa ovata\n[link]\nAdolf Krige, Ulrika Rova, Paul Christakopoulos · 2021 · similarity 0.64\nP3. Bioenergy Production in Bioelectrochemical System [link]\nRajesh K. Srivastava · 2020 · similarity",
+    "source": "internal_rubric"
+  },
+  {
+    "title": "Experiment Plan Rubric — Chunk 2",
+    "authors": "Internal",
+    "year": "2025",
+    "link": "",
+    "abstract": " 0.51\nRelated protocols\nPR1. Bioelectrochemical reactor setup for microbial electrosynthesis with Sporomusa ovata (JOVE) [link]\nAnaerobic two-chamber MES reactor build, cathode preparation, S. ovata inoculation, and acetate quantification.\nPR2. HPLC quantification of short-chain fatty acids (acetate, propionate, butyrate) (Bio-protocol) [link]\nIon-exclusion HPLC with refractive index detection for SCFA quantification from microbial cultures and gut samples.\n\nProtocol\nStep 1. Prepare bioelectrochemical reactor (1 day)\nAssemble an anaerobic two-chamber MES reactor as described in PR1. Ensure the cathode is set to a potential of\n−400mV vs SHE.\nReferences: PR1\nStep 2. Prepare Sporomusa ovata culture (2 days)\nInoculate Sporomusa ovata in an appropriate growth medium and incubate under anaerobic conditions at 30°C until an\nOD600 of 0.6 is reached.\nReferences: P1\nStep 3. Inoculate reactor with Sporomusa ovata (1 hour)\nTransfer the Sporomusa ovata culture into the cathode chamber of the reactor. Ensure the chamber is sealed to maintain\nanaerobic conditions.\nReferences: PR1\nStep 4. Operate reactor under experimental conditions (7 days)\nMaintain the reactor at a cathode potential of −400mV vs SHE. Continuously supply CO■ at a flow rate of 10 mL/min.\nMonitor the system for 7 days.\nReferences: P1, PR1\nStep 5. Quantify acetate production (2 hours per sample)\nCollect samples from the cathode chamber daily. Use ion-exclusion HPLC with refractive index detection to quantify\nacetate concentra",
+    "source": "internal_rubric"
+  },
+  {
+    "title": "Experiment Plan Rubric — Chunk 3",
+    "authors": "Internal",
+    "year": "2025",
+    "link": "",
+    "abstract": "tion as described in PR2.\nReferences: PR2\nMaterials\nName\nSupplier\nCatalog\nQty\nUnit $\nURL\nSporomusa ovata DSM 2662\nATCC\n35899\n1 vial\n$395\nlink\nBioelectrochemical reactor\nsetup\nThermo\nFisher\nTBD\n1 setup\n$0\nlink\nCO■ gas cylinder\nSigma-Aldrich\nNISTRM856\n3\n1 cylinder\n$0\nlink\nHPLC system\nThermo\nFisher\nV-HORIZO\nN-BNDL\n1 system\n$1,731\nlink\nBudget\nTotal: $0\nCategory\nAmount (USD)\nReagents\n$0\nConsumables\n$0\nEquipment\n$0\n\nTimeline\nPhase\nDuration (weeks)\nDepends on\nReactor setup and culture preparation\n1\n—\nExperimental run\n1\nReactor setup and culture preparation\nData analysis\n1\nExperimental run\nValidation\nPrimary metric: Acetate production rate\nSuccess criteria: ≥150 mmol/L/day, outperforming benchmarks by ≥20%, p<0.05, n=3\nControls:\n No inoculation control\n Baseline CO■ fixation rate\nReferences\n P1: Sporomusa ovata as Catalyst for Bioelectrochemical Carbon Dioxide Reduction: A Review Across Disciplines From\nMicrobiology to Process Engineering\n PR1: Bioelectrochemical reactor setup for microbial electrosynthesis with Sporomusa ovata\n PR2: HPLC quantification of short-chain fatty acids (acetate, propionate, butyrate)\n PR1: Bioelectrochemical reactor setup for microbial electrosynthesis with Sporomusa ovata (JOVE) —\nhttps://www.jove.com/t/54749\n PR2: HPLC quantification of short-chain fatty acids (acetate, propionate, butyrate) (Bio-protocol) —\nhttps://bio-protocol.org/e3370\n",
+    "source": "internal_rubric"
   }
 ]

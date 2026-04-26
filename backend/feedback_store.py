@@ -145,3 +145,42 @@ def format_for_prompt(items: List[Dict[str, Any]]) -> str:
         body = correction or comment or "(no detail)"
         lines.append(f"- [section: {section}{rating_str}] {body}")
     return "\n".join(lines)
+
+
+def format_inline_feedback(items: List[Dict[str, Any]],
+                           previous_plan: Optional[Dict[str, Any]]) -> str:
+    """Strong, current-session feedback block — always included, no similarity gate.
+
+    The block carries the previous plan (truncated) so the LLM has an explicit anchor for
+    "fix THIS" rather than re-imagining the plan from scratch.
+    """
+    if not items:
+        return ""
+    body_items = []
+    for it in items:
+        sec = it.get("section", "overall")
+        rating = it.get("rating")
+        body = (it.get("correction") or it.get("comment") or "").strip()
+        if not body and rating is None:
+            continue
+        rstr = f" (rated {rating}/5)" if rating is not None else ""
+        body_items.append(f"- [{sec}{rstr}] {body or 'rating only — improve this section'}")
+    if not body_items:
+        return ""
+
+    lines = [
+        "USER_FEEDBACK_ON_PREVIOUS_PLAN (must be addressed in the new plan — highest priority):",
+    ]
+    if previous_plan:
+        prev = json.dumps(previous_plan, ensure_ascii=False)
+        if len(prev) > 6000:
+            prev = prev[:6000] + "...(truncated)"
+        lines.append("PREVIOUS_PLAN_JSON:")
+        lines.append(prev)
+    lines.append("REQUIRED_CHANGES:")
+    lines.extend(body_items)
+    lines.append(
+        "Produce a NEW plan that explicitly addresses every item above. "
+        "Do not regress on sections that scored well; preserve their content."
+    )
+    return "\n".join(lines)

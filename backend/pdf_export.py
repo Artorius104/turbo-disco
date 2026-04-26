@@ -155,9 +155,16 @@ def render_pdf(hypothesis: str, parsed: Optional[ParsedHypothesis],
     if plan.protocols_used:
         elements.append(Paragraph("Related protocols", st["h2"]))
         for i, pr in enumerate(plan.protocols_used, 1):
+            status = getattr(pr, "link_status", "unchecked")
+            if status == "ok" and pr.link:
+                link_html = f'<link href="{pr.link}"><font color="#2563eb">[link ✓]</font></link>'
+            elif status == "unavailable":
+                link_html = "<font color='#9ca3af'>[link unavailable]</font>"
+            else:
+                link_html = ""
             elements.append(Paragraph(
                 f"<b>PR{i}.</b> {_esc(pr.title)} <font color='#6b7280'>({_esc(pr.source)})</font> "
-                f'<link href="{pr.link}"><font color="#2563eb">[link]</font></link>',
+                + link_html,
                 st["body"],
             ))
             if pr.summary:
@@ -182,22 +189,30 @@ def render_pdf(hypothesis: str, parsed: Optional[ParsedHypothesis],
     rows = [[
         _header_cell("Name", st), _header_cell("Supplier", st),
         _header_cell("Catalog", st), _header_cell("Qty", st),
-        _header_cell("Unit $", st), _header_cell("URL", st),
+        _header_cell("Unit $", st), _header_cell("Source", st),
+        _header_cell("URL", st),
     ]]
     for m in plan.materials:
+        cost_str = getattr(m, "cost_display", "") or (
+            f"${m.unit_cost_usd:,.0f}" if m.unit_cost_usd > 0 else "unknown"
+        )
+        source_str = getattr(m, "cost_source", "unknown")
         rows.append([
             Paragraph(_esc(m.name), st["body"]),
             Paragraph(_esc(m.supplier), st["body"]),
             Paragraph(_esc(m.catalog), st["body"]),
             Paragraph(_esc(m.quantity), st["body"]),
-            Paragraph(f"${m.unit_cost_usd:,.0f}", st["body"]),
+            Paragraph(_esc(cost_str), st["body"]),
+            Paragraph(_esc(source_str), st["small"]),
             _link("link", m.url, st) if m.url else Paragraph("—", st["body"]),
         ])
-    elements.append(_table(rows, [2.0 * inch, 1.0 * inch, 0.9 * inch,
-                                   0.9 * inch, 0.6 * inch, 0.6 * inch]))
+    elements.append(_table(rows, [1.7 * inch, 0.9 * inch, 0.8 * inch,
+                                   0.8 * inch, 0.9 * inch, 0.7 * inch, 0.5 * inch]))
 
     elements.append(Paragraph("Budget", st["h2"]))
     elements.append(Paragraph(f"<b>Total: ${plan.budget.total_usd:,.0f}</b>", st["body"]))
+    if getattr(plan.budget, "notes", ""):
+        elements.append(Paragraph(_esc(plan.budget.notes), st["small"]))
     rows = [[_header_cell("Category", st), _header_cell("Amount (USD)", st)]]
     for li in plan.budget.line_items:
         rows.append([

@@ -5,7 +5,7 @@ from typing import List, Dict, Optional
 
 import httpx
 
-from . import europepmc_client, embedding_fallback
+from . import europepmc_client, embedding_fallback, url_validator
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +38,7 @@ def _static_matches(query: str) -> List[Dict]:
                 "source": entry.get("source", "static"),
                 "link": entry.get("link", ""),
                 "summary": entry.get("summary", ""),
+                "_curated": True,  # static map is human-curated → trust the link
             })
     return out
 
@@ -132,12 +133,30 @@ def search_protocols(query: str, parsed: Optional[Dict] = None,
         p["_score"] = s.get("similarity_score", 0.0)
     candidates.sort(key=lambda p: p["_score"], reverse=True)
 
-    out = []
-    for p in candidates[:max_results]:
+    top = candidates[: max_results * 2]
+    # Validate only NON-curated links (static map is human-vetted; some publishers
+    # — e.g. Bio-protocol — return WAF block codes to programmatic clients).
+    needs_check = [p.get("link", "") for p in top if not p.get("_curated") and p.get("link")]
+    statuses = url_validator.validate_many(needs_check)
+    out: List[Dict] = []
+    for p in top:
+        link = p.get("link", "") or ""
+        if p.get("_curated") and link:
+            status = "ok"
+        elif link:
+            status = statuses.get(link, "unavailable")
+            if status == "disallowed":
+                link = ""
+                status = "unavailable"
+        else:
+            status = "unavailable"
         out.append({
             "title": p["title"],
             "source": p.get("source", ""),
-            "link": p.get("link", ""),
+            "link": link if status == "ok" else "",
             "summary": p.get("summary", ""),
+            "link_status": status if status in ("ok", "unavailable") else "unavailable",
         })
+        if len(out) >= max_results:
+            break
     return out

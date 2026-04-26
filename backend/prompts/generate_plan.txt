@@ -9,7 +9,7 @@ You MUST output a single valid JSON object with this exact shape:
       "title": "short imperative step name",
       "description": "concrete, quantitative instructions: concentrations, durations, temperatures, volumes, equipment",
       "duration": "e.g. 2h, 30 min, 1 day",
-      "references": ["paper or protocol indices like 'P1' or 'PR1', or full URLs from RELATED_PROTOCOLS"]
+      "references": ["P1", "PR2", "https://www.nature.com/articles/..."]
     }
   ],
   "materials": [
@@ -18,14 +18,15 @@ You MUST output a single valid JSON object with this exact shape:
       "supplier": "Thermo Fisher | Sigma-Aldrich | Promega | Qiagen | IDT | ATCC | Addgene",
       "catalog": "supplier catalog number, or 'TBD' if unknown — do NOT fabricate numbers",
       "quantity": "e.g. 1 vial, 500 mL, 100 µg",
-      "unit_cost_usd": 0,
+      "unit_cost_usd": 95,
+      "category": "Reagents | Consumables | Kits | Equipment | Other",
       "url": ""
     }
   ],
   "budget": {
     "total_usd": 0,
     "line_items": [
-      {"category": "Reagents | Consumables | Equipment | Personnel | Animals | Sequencing | Other", "amount_usd": 0}
+      {"category": "Personnel | Sequencing | Animals | Other", "amount_usd": 0}
     ]
   },
   "timeline": [
@@ -45,14 +46,16 @@ You MUST output a single valid JSON object with this exact shape:
 
 Hard rules:
 1. Output ONLY the JSON object. No prose, no markdown fences.
-2. Every numeric quantity must be plausible for a real lab (no placeholder zeros for materials that are clearly needed).
-3. The sum of `budget.line_items[].amount_usd` MUST equal `budget.total_usd`.
-4. Every `protocol` step that borrows a method MUST cite it. Use "P<index>" for RELATED_PAPERS, "PR<index>" for RELATED_PROTOCOLS, or the protocol URL directly. If the step is fully generic, references can be `[]`.
-5. NEVER invent supplier catalog numbers. If unsure, write "TBD" and leave url "".
-6. Allowed suppliers are EXACTLY these seven — no others permitted under any circumstance:
+2. Every numeric quantity must be plausible for a real lab.
+3. **Pricing**: If you genuinely know the catalog price for a material, set `unit_cost_usd` to that number. If you do NOT know, set `unit_cost_usd` to 0 and `catalog` to "TBD" — the system will substitute a category-based estimate ($50–500 reagents/consumables, $100–1000 kits, $1000–10000 equipment). NEVER guess a fake non-zero price.
+4. **Budget**: The system will compute `budget.total_usd` from materials + your non-material line items. Your job for `budget.line_items` is ONLY to estimate non-material categories (Personnel, Sequencing, Animals, Other) — DO NOT duplicate Reagents/Consumables/Kits/Equipment, those are summed automatically from the materials list. Set `budget.total_usd` to 0; the system overwrites it.
+5. Every `protocol` step that borrows a method MUST cite it. References MUST be one of: a P-token like "P1" (RELATED_PAPERS), a PR-token like "PR1" (RELATED_PROTOCOLS), or a full URL on one of these allowed hosts only — protocols.io, bio-protocol.org, nature.com, openwetware.org, jove.com, europepmc.org, ncbi.nlm.nih.gov, doi.org, addgene.org, atcc.org, thermofisher.com, sigmaaldrich.com, promega.com, idtdna.com. URLs on any other host will be discarded. If the step is fully generic, references can be `[]`. NEVER write bare-text references.
+6. NEVER invent supplier catalog numbers. If unsure, write "TBD" and leave url "".
+7. Allowed suppliers are EXACTLY these seven — no others permitted under any circumstance:
    Thermo Fisher, Sigma-Aldrich, Promega, Qiagen, IDT, ATCC, Addgene.
    If uncertain, default to Sigma-Aldrich for chemical reagents and Thermo Fisher for consumables / equipment / cell-culture media.
-7. Timeline phases must reflect realistic dependencies (e.g. animal acclimation before treatment).
-8. Use SI units, and include controls (vehicle, untreated, positive when relevant).
-9. Anchor protocol decisions in published norms when possible: Bio-protocol, Nature Protocols, JOVE, OpenWetWare, MIQE for qPCR. Prefer entries from RELATED_PROTOCOLS when applicable.
-10. If PRIOR_REVIEWER_NOTES are provided in the user message, your plan MUST address every note. Do not repeat the corrected mistakes — apply the lessons explicitly.
+8. Timeline phases must reflect realistic dependencies (e.g. animal acclimation before treatment).
+9. Use SI units, and include controls (vehicle, untreated, positive when relevant).
+10. Anchor protocol decisions in published norms when possible: Bio-protocol, Nature Protocols, JOVE, OpenWetWare, MIQE for qPCR. Prefer entries from RELATED_PROTOCOLS when applicable.
+11. If a RUBRIC block is provided in the user message, follow its section structure and depth requirements.
+12. If USER_FEEDBACK_ON_PREVIOUS_PLAN or PRIOR_REVIEWER_NOTES are provided, your plan MUST address every note explicitly. Do not regress on sections that already worked.

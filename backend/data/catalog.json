@@ -1,0 +1,492 @@
+[
+  {
+    "aliases": ["dmso", "dimethyl sulfoxide", "me2so", "dimethylsulfoxide"],
+    "canonical_name": "Dimethyl sulfoxide (DMSO), molecular biology grade",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "D8418",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/d8418",
+    "package_size": "100 mL",
+    "unit_cost_usd": 95,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["trehalose", "d-(+)-trehalose", "trehalose dihydrate"],
+    "canonical_name": "D-(+)-Trehalose dihydrate",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "T9531",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/t9531",
+    "package_size": "100 g",
+    "unit_cost_usd": 220,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["sucrose", "d-sucrose"],
+    "canonical_name": "Sucrose, BioXtra grade",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "S7903",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/s7903",
+    "package_size": "500 g",
+    "unit_cost_usd": 75,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["fbs", "fetal bovine serum", "fetal calf serum"],
+    "canonical_name": "Fetal Bovine Serum, qualified, US origin",
+    "supplier": "Thermo Fisher",
+    "catalog": "26140079",
+    "url": "https://www.thermofisher.com/order/catalog/product/26140079",
+    "package_size": "500 mL",
+    "unit_cost_usd": 615,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["trypsin-edta", "trypsin", "0.25% trypsin", "trypsin edta"],
+    "canonical_name": "0.25% Trypsin-EDTA (1X), phenol red",
+    "supplier": "Thermo Fisher",
+    "catalog": "25200056",
+    "url": "https://www.thermofisher.com/order/catalog/product/25200056",
+    "package_size": "100 mL",
+    "unit_cost_usd": 49,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["pbs", "phosphate buffered saline", "dpbs", "1x pbs"],
+    "canonical_name": "PBS, pH 7.4, 1X (without calcium and magnesium)",
+    "supplier": "Thermo Fisher",
+    "catalog": "10010023",
+    "url": "https://www.thermofisher.com/order/catalog/product/10010023",
+    "package_size": "500 mL",
+    "unit_cost_usd": 28,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["dmem", "dulbecco's modified eagle medium"],
+    "canonical_name": "DMEM, high glucose, GlutaMAX supplement",
+    "supplier": "Thermo Fisher",
+    "catalog": "10566016",
+    "url": "https://www.thermofisher.com/order/catalog/product/10566016",
+    "package_size": "500 mL",
+    "unit_cost_usd": 38,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["emem", "eagle's minimum essential medium", "eagle minimum essential"],
+    "canonical_name": "Eagle's Minimum Essential Medium (EMEM)",
+    "supplier": "ATCC",
+    "catalog": "30-2003",
+    "url": "https://www.atcc.org/products/30-2003",
+    "package_size": "500 mL",
+    "unit_cost_usd": 45,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["mrs broth", "lactobacillus mrs", "de man rogosa sharpe"],
+    "canonical_name": "MRS Broth (Lactobacillus broth)",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "69966",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/69966",
+    "package_size": "500 g",
+    "unit_cost_usd": 165,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["fitc-dextran", "fitc dextran", "fluorescein isothiocyanate-dextran", "4 kda fitc-dextran"],
+    "canonical_name": "Fluorescein isothiocyanate–dextran, average MW 4000",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "FD4",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/fd4",
+    "package_size": "1 g",
+    "unit_cost_usd": 215,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["dss", "dextran sulfate sodium", "dextran sodium sulfate"],
+    "canonical_name": "Dextran sulfate sodium salt (MW ~40 kDa)",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "42867",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/42867",
+    "package_size": "25 g",
+    "unit_cost_usd": 285,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["lactobacillus rhamnosus gg", "lgg", "l. rhamnosus gg", "atcc 53103"],
+    "canonical_name": "Lactobacillus rhamnosus GG (ATCC 53103)",
+    "supplier": "ATCC",
+    "catalog": "53103",
+    "url": "https://www.atcc.org/products/53103",
+    "package_size": "1 vial",
+    "unit_cost_usd": 540,
+    "category": "Biological materials"
+  },
+  {
+    "aliases": ["sporomusa ovata", "s. ovata", "dsm 2662"],
+    "canonical_name": "Sporomusa ovata DSM 2662",
+    "supplier": "ATCC",
+    "catalog": "35899",
+    "url": "https://www.atcc.org/products/35899",
+    "package_size": "1 vial",
+    "unit_cost_usd": 395,
+    "category": "Biological materials"
+  },
+  {
+    "aliases": ["hela", "hela cells", "ccl-2", "ccl2"],
+    "canonical_name": "HeLa human cervical adenocarcinoma cells (CCL-2)",
+    "supplier": "ATCC",
+    "catalog": "CCL-2",
+    "url": "https://www.atcc.org/products/ccl-2",
+    "package_size": "1 vial (~1e6 cells)",
+    "unit_cost_usd": 645,
+    "category": "Biological materials"
+  },
+  {
+    "aliases": ["c57bl/6", "c57bl/6j", "c57 black 6", "b6"],
+    "canonical_name": "C57BL/6J mice",
+    "supplier": "ATCC",
+    "catalog": "CRL-12076",
+    "url": "https://www.atcc.org/products/crl-12076",
+    "package_size": "per animal (vendor pricing)",
+    "unit_cost_usd": 35,
+    "category": "Animals"
+  },
+  {
+    "aliases": ["anti-claudin-1", "claudin-1 antibody", "claudin 1"],
+    "canonical_name": "Anti-Claudin-1 rabbit polyclonal antibody",
+    "supplier": "Thermo Fisher",
+    "catalog": "71-7800",
+    "url": "https://www.thermofisher.com/antibody/product/71-7800",
+    "package_size": "100 µL",
+    "unit_cost_usd": 419,
+    "category": "Antibodies"
+  },
+  {
+    "aliases": ["anti-occludin", "occludin antibody"],
+    "canonical_name": "Anti-Occludin rabbit polyclonal antibody",
+    "supplier": "Thermo Fisher",
+    "catalog": "40-4700",
+    "url": "https://www.thermofisher.com/antibody/product/40-4700",
+    "package_size": "100 µL",
+    "unit_cost_usd": 405,
+    "category": "Antibodies"
+  },
+  {
+    "aliases": ["anti-zo-1", "zo-1 antibody", "tight junction protein 1"],
+    "canonical_name": "Anti-ZO-1 rabbit polyclonal antibody",
+    "supplier": "Thermo Fisher",
+    "catalog": "61-7300",
+    "url": "https://www.thermofisher.com/antibody/product/61-7300",
+    "package_size": "100 µL",
+    "unit_cost_usd": 410,
+    "category": "Antibodies"
+  },
+  {
+    "aliases": ["anti-crp", "anti c-reactive protein", "crp antibody"],
+    "canonical_name": "Anti-human CRP monoclonal antibody (clone C5)",
+    "supplier": "Thermo Fisher",
+    "catalog": "MA1-91262",
+    "url": "https://www.thermofisher.com/antibody/product/MA1-91262",
+    "package_size": "100 µg",
+    "unit_cost_usd": 395,
+    "category": "Antibodies"
+  },
+  {
+    "aliases": ["crp standard", "human c-reactive protein", "purified crp"],
+    "canonical_name": "Recombinant human C-reactive protein",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "C4063",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/c4063",
+    "package_size": "1 mg",
+    "unit_cost_usd": 380,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["ecl substrate", "chemiluminescence", "western blot substrate", "supersignal"],
+    "canonical_name": "SuperSignal West Pico PLUS Chemiluminescent Substrate",
+    "supplier": "Thermo Fisher",
+    "catalog": "34577",
+    "url": "https://www.thermofisher.com/order/catalog/product/34577",
+    "package_size": "100 mL",
+    "unit_cost_usd": 220,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["pvdf membrane", "pvdf"],
+    "canonical_name": "PVDF Transfer Membrane, 0.45 µm",
+    "supplier": "Thermo Fisher",
+    "catalog": "88518",
+    "url": "https://www.thermofisher.com/order/catalog/product/88518",
+    "package_size": "10 sheets",
+    "unit_cost_usd": 245,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["bca protein assay", "bca kit", "protein quantification"],
+    "canonical_name": "Pierce BCA Protein Assay Kit",
+    "supplier": "Thermo Fisher",
+    "catalog": "23225",
+    "url": "https://www.thermofisher.com/order/catalog/product/23225",
+    "package_size": "500 assays",
+    "unit_cost_usd": 215,
+    "category": "Kits"
+  },
+  {
+    "aliases": ["rneasy", "rna extraction kit", "rneasy mini"],
+    "canonical_name": "RNeasy Mini Kit",
+    "supplier": "Qiagen",
+    "catalog": "74104",
+    "url": "https://www.qiagen.com/us/products/discovery-and-translational-research/dna-rna-purification/rna-purification/total-rna/rneasy-mini-kit",
+    "package_size": "50 preps",
+    "unit_cost_usd": 449,
+    "category": "Kits"
+  },
+  {
+    "aliases": ["dneasy", "dna extraction kit", "dneasy blood and tissue"],
+    "canonical_name": "DNeasy Blood & Tissue Kit",
+    "supplier": "Qiagen",
+    "catalog": "69504",
+    "url": "https://www.qiagen.com/us/products/discovery-and-translational-research/dna-rna-purification/dna-purification/genomic-dna/dneasy-blood-and-tissue-kit",
+    "package_size": "50 preps",
+    "unit_cost_usd": 419,
+    "category": "Kits"
+  },
+  {
+    "aliases": ["sybr green", "sybr green master mix", "qpcr master mix"],
+    "canonical_name": "PowerUp SYBR Green Master Mix",
+    "supplier": "Thermo Fisher",
+    "catalog": "A25742",
+    "url": "https://www.thermofisher.com/order/catalog/product/A25742",
+    "package_size": "5 mL",
+    "unit_cost_usd": 365,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["cdna synthesis", "reverse transcription kit", "high capacity cdna"],
+    "canonical_name": "High-Capacity cDNA Reverse Transcription Kit",
+    "supplier": "Thermo Fisher",
+    "catalog": "4368814",
+    "url": "https://www.thermofisher.com/order/catalog/product/4368814",
+    "package_size": "200 reactions",
+    "unit_cost_usd": 545,
+    "category": "Kits"
+  },
+  {
+    "aliases": ["t4 dna ligase", "ligase"],
+    "canonical_name": "T4 DNA Ligase",
+    "supplier": "Promega",
+    "catalog": "M1801",
+    "url": "https://www.promega.com/products/cloning-and-dna-markers/dna-ligation-and-blunting/t4-dna-ligase/",
+    "package_size": "100 units",
+    "unit_cost_usd": 95,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["taq polymerase", "go taq", "taq dna polymerase"],
+    "canonical_name": "GoTaq G2 DNA Polymerase",
+    "supplier": "Promega",
+    "catalog": "M7841",
+    "url": "https://www.promega.com/products/pcr/taq-polymerase/gotaq-g2-dna-polymerase/",
+    "package_size": "500 units",
+    "unit_cost_usd": 280,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["dna primers", "custom oligos", "oligonucleotides"],
+    "canonical_name": "Custom DNA oligonucleotide (25 nmol, desalted)",
+    "supplier": "IDT",
+    "catalog": "OLIGO-25NMOL",
+    "url": "https://www.idtdna.com/pages/products/custom-dna-rna/dna-oligos",
+    "package_size": "25 nmol",
+    "unit_cost_usd": 12,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["gblock", "gblocks", "synthetic dna fragment"],
+    "canonical_name": "gBlocks Gene Fragment",
+    "supplier": "IDT",
+    "catalog": "GBLOCK-500BP",
+    "url": "https://www.idtdna.com/pages/products/genes-and-gene-fragments/double-stranded-dna-fragments/gblocks-gene-fragments",
+    "package_size": "1 fragment (≤500 bp)",
+    "unit_cost_usd": 99,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["addgene plasmid", "plasmid", "expression vector"],
+    "canonical_name": "Addgene plasmid (research-only, generic listing)",
+    "supplier": "Addgene",
+    "catalog": "ADDGENE-VAR",
+    "url": "https://www.addgene.org/",
+    "package_size": "1 vial",
+    "unit_cost_usd": 85,
+    "category": "Biological materials"
+  },
+  {
+    "aliases": ["screen-printed gold electrode", "spe gold", "gold electrode chip", "screen printed electrode"],
+    "canonical_name": "Screen-printed gold electrode (DRP-220BT, set of 25)",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "MSP-DRP-220BT",
+    "url": "https://www.sigmaaldrich.com/US/en/search/drp-220bt",
+    "package_size": "25 electrodes",
+    "unit_cost_usd": 180,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["nitrocellulose membrane", "lateral flow membrane"],
+    "canonical_name": "Nitrocellulose membrane (0.45 µm) for lateral flow",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "GVS1145R25",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/gvs1145r25",
+    "package_size": "25 sheets",
+    "unit_cost_usd": 165,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["bsa", "bovine serum albumin"],
+    "canonical_name": "Bovine Serum Albumin, fraction V",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "A9418",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/a9418",
+    "package_size": "100 g",
+    "unit_cost_usd": 245,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["tween 20", "polysorbate 20"],
+    "canonical_name": "Tween 20",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "P1379",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/p1379",
+    "package_size": "500 mL",
+    "unit_cost_usd": 95,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["graphite felt", "carbon felt", "cathode material"],
+    "canonical_name": "Graphite carbon felt, 6 mm thick",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "699632",
+    "url": "https://www.sigmaaldrich.com/US/en/product/aldrich/699632",
+    "package_size": "1 m^2",
+    "unit_cost_usd": 320,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["potentiostat", "electrochemical workstation", "biologic"],
+    "canonical_name": "Potentiostat / electrochemical workstation (single-channel)",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "Z273716",
+    "url": "https://www.sigmaaldrich.com/US/en/product/aldrich/z273716",
+    "package_size": "1 unit",
+    "unit_cost_usd": 4500,
+    "category": "Equipment"
+  },
+  {
+    "aliases": ["plate reader", "microplate reader", "fluorescence plate reader"],
+    "canonical_name": "Multi-mode microplate reader (fluorescence + absorbance)",
+    "supplier": "Thermo Fisher",
+    "catalog": "VLBLATGD2",
+    "url": "https://www.thermofisher.com/order/catalog/product/VLBLATGD2",
+    "package_size": "1 unit",
+    "unit_cost_usd": 18500,
+    "category": "Equipment"
+  },
+  {
+    "aliases": ["qpcr machine", "real-time pcr instrument", "quantstudio"],
+    "canonical_name": "QuantStudio 3 Real-Time PCR System",
+    "supplier": "Thermo Fisher",
+    "catalog": "A28567",
+    "url": "https://www.thermofisher.com/order/catalog/product/A28567",
+    "package_size": "1 unit",
+    "unit_cost_usd": 26000,
+    "category": "Equipment"
+  },
+  {
+    "aliases": ["96 well plate", "96-well plate", "tissue culture plate"],
+    "canonical_name": "96-well tissue culture plate, flat bottom",
+    "supplier": "Thermo Fisher",
+    "catalog": "167008",
+    "url": "https://www.thermofisher.com/order/catalog/product/167008",
+    "package_size": "100 plates",
+    "unit_cost_usd": 215,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["pipette tips", "1000 ul tips", "10 ul tips"],
+    "canonical_name": "Filter pipette tips, 1000 µL (sterile)",
+    "supplier": "Thermo Fisher",
+    "catalog": "AM12655",
+    "url": "https://www.thermofisher.com/order/catalog/product/AM12655",
+    "package_size": "960 tips",
+    "unit_cost_usd": 95,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["cryovials", "freezing vials"],
+    "canonical_name": "Cryovials, 2 mL, externally threaded",
+    "supplier": "Thermo Fisher",
+    "catalog": "5000-0020",
+    "url": "https://www.thermofisher.com/order/catalog/product/5000-0020",
+    "package_size": "500 vials",
+    "unit_cost_usd": 145,
+    "category": "Consumables"
+  },
+  {
+    "aliases": ["mr freeze", "mr. frosty", "controlled rate freezer"],
+    "canonical_name": "Mr. Frosty Freezing Container",
+    "supplier": "Thermo Fisher",
+    "catalog": "5100-0001",
+    "url": "https://www.thermofisher.com/order/catalog/product/5100-0001",
+    "package_size": "1 unit",
+    "unit_cost_usd": 95,
+    "category": "Equipment"
+  },
+  {
+    "aliases": ["trypan blue"],
+    "canonical_name": "Trypan Blue solution, 0.4%",
+    "supplier": "Thermo Fisher",
+    "catalog": "15250061",
+    "url": "https://www.thermofisher.com/order/catalog/product/15250061",
+    "package_size": "100 mL",
+    "unit_cost_usd": 38,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["mtt", "mtt assay reagent"],
+    "canonical_name": "Thiazolyl Blue Tetrazolium Bromide (MTT)",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "M5655",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/m5655",
+    "package_size": "1 g",
+    "unit_cost_usd": 112,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["paraformaldehyde", "pfa", "formaldehyde"],
+    "canonical_name": "Paraformaldehyde, 16% solution, EM grade",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "P6148",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/p6148",
+    "package_size": "500 g",
+    "unit_cost_usd": 145,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["acetate standard", "sodium acetate"],
+    "canonical_name": "Sodium acetate, anhydrous, ≥99%",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "S2889",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/s2889",
+    "package_size": "500 g",
+    "unit_cost_usd": 95,
+    "category": "Reagents"
+  },
+  {
+    "aliases": ["agar plates", "lb agar plates"],
+    "canonical_name": "LB Agar (Miller), pre-poured plates",
+    "supplier": "Sigma-Aldrich",
+    "catalog": "L2897",
+    "url": "https://www.sigmaaldrich.com/US/en/product/sigma/l2897",
+    "package_size": "500 g (powder)",
+    "unit_cost_usd": 130,
+    "category": "Consumables"
+  }
+]

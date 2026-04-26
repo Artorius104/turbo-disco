@@ -1,7 +1,7 @@
 import logging
 from typing import List, Dict, Tuple
 
-from . import arxiv_client, crossref_client, embedding_fallback
+from . import arxiv_client, crossref_client, embedding_fallback, europepmc_client, openalex_client
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +34,8 @@ def retrieve(hypothesis: str, parsed: Dict | None) -> Tuple[List[Dict], str, str
 
     sources = [
         ("api:arxiv", arxiv_client.search),
+        ("api:europepmc", europepmc_client.search),
+        ("api:openalex", openalex_client.search),
         ("api:crossref", crossref_client.search),
     ]
 

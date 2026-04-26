@@ -16,6 +16,19 @@ class ParsedHypothesis(BaseModel):
     keywords: List[str] = Field(default_factory=list)
 
 
+class ValidateHypothesisRequest(BaseModel):
+    hypothesis: str
+    parsed: Optional[ParsedHypothesis] = None
+
+
+class ValidateHypothesisResponse(BaseModel):
+    score: float = 0.0
+    status: Literal["ok", "needs_revision"]
+    issues: List[str] = Field(default_factory=list)
+    suggestions: List[str] = Field(default_factory=list)
+    improved_hypothesis: str = ""
+
+
 class Paper(BaseModel):
     title: str
     authors: str
@@ -25,15 +38,31 @@ class Paper(BaseModel):
     similarity_score: float = 0.0
 
 
+class Protocol(BaseModel):
+    title: str
+    source: str = ""
+    link: str = ""
+    summary: str = ""
+
+
 class LiteratureQCRequest(BaseModel):
     hypothesis: str
     parsed: Optional[ParsedHypothesis] = None
 
 
+SourceLabel = Literal[
+    "api:arxiv",
+    "api:europepmc",
+    "api:openalex",
+    "api:crossref",
+    "local_fallback",
+]
+
+
 class LiteratureQCResponse(BaseModel):
     novelty: Literal["not found", "similar work exists", "exact match found"]
     papers: List[Paper]
-    source: Literal["api:arxiv", "api:crossref", "local_fallback"]
+    source: SourceLabel
 
 
 class GeneratePlanRequest(BaseModel):
@@ -88,3 +117,29 @@ class ExperimentPlan(BaseModel):
     timeline: List[TimelinePhase]
     validation: Validation
     references_used: List[str] = Field(default_factory=list)
+    protocols_used: List[Protocol] = Field(default_factory=list)
+
+
+class FeedbackItem(BaseModel):
+    section: Literal["protocol", "materials", "budget", "timeline", "validation", "overall"]
+    rating: Optional[int] = None
+    correction: str = ""
+    comment: str = ""
+
+
+class FeedbackRequest(BaseModel):
+    hypothesis: str
+    parsed: Optional[ParsedHypothesis] = None
+    plan: ExperimentPlan
+    items: List[FeedbackItem]
+
+
+class FeedbackResponse(BaseModel):
+    stored: int
+
+
+class ExportPDFRequest(BaseModel):
+    hypothesis: str
+    parsed: Optional[ParsedHypothesis] = None
+    qc: Optional[LiteratureQCResponse] = None
+    plan: ExperimentPlan

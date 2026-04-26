@@ -1,0 +1,107 @@
+[
+  {
+    "keywords": ["fitc-dextran", "intestinal permeability", "gut barrier", "in vivo permeability"],
+    "title": "In vivo intestinal permeability assay using FITC-dextran in mice",
+    "source": "Nature Protocols",
+    "link": "https://www.nature.com/articles/nprot.2016.077",
+    "summary": "Step-by-step protocol for oral gavage of 4 kDa FITC-dextran in mice and serum fluorescence quantification 4 hours post-gavage."
+  },
+  {
+    "keywords": ["qpcr", "rt-qpcr", "real-time pcr", "miqe"],
+    "title": "MIQE Guidelines: Minimum Information for Publication of Quantitative Real-Time PCR Experiments",
+    "source": "Bio-protocol / Clinical Chemistry",
+    "link": "https://bio-protocol.org/en/bpdetail?id=2298",
+    "summary": "Consensus guidelines for transparent, reproducible qPCR: RNA quality, primer validation, reference genes, statistical analysis."
+  },
+  {
+    "keywords": ["western blot", "claudin", "occludin", "zo-1", "tight junction"],
+    "title": "Quantitative western blot for tight-junction proteins (claudin-1, occludin, ZO-1)",
+    "source": "Bio-protocol",
+    "link": "https://bio-protocol.org/e2851",
+    "summary": "Optimised western blot protocol for membrane-bound tight-junction proteins: lysate preparation, transfer, densitometric quantification."
+  },
+  {
+    "keywords": ["elisa", "sandwich elisa", "crp", "c-reactive protein", "cytokine"],
+    "title": "Sandwich ELISA for serum proteins (CRP, cytokines)",
+    "source": "Nature Protocols",
+    "link": "https://www.nature.com/articles/nprot.2007.514",
+    "summary": "Quantitative sandwich ELISA with biotin-streptavidin detection; linear range, blocking, and CV optimisation."
+  },
+  {
+    "keywords": ["cryopreservation", "cell freezing", "thaw", "viability", "dmso", "trehalose"],
+    "title": "Cryopreservation of mammalian cells in suspension",
+    "source": "Bio-protocol",
+    "link": "https://bio-protocol.org/e2218",
+    "summary": "Slow-cooling cryopreservation protocol for adherent and suspension mammalian cells, with post-thaw viability assays."
+  },
+  {
+    "keywords": ["cyclic voltammetry", "voltammogram", "electrochemistry"],
+    "title": "Cyclic voltammetry: methodology for electrochemical characterisation",
+    "source": "JOVE",
+    "link": "https://www.jove.com/t/3791",
+    "summary": "General CV protocol covering electrolyte preparation, three-electrode setup, scan-rate selection, and data interpretation."
+  },
+  {
+    "keywords": ["microbial electrosynthesis", "mes", "sporomusa", "cathode", "bioelectrochemical"],
+    "title": "Bioelectrochemical reactor setup for microbial electrosynthesis with Sporomusa ovata",
+    "source": "JOVE",
+    "link": "https://www.jove.com/t/54749",
+    "summary": "Anaerobic two-chamber MES reactor build, cathode preparation, S. ovata inoculation, and acetate quantification."
+  },
+  {
+    "keywords": ["screen-printed electrode", "biosensor", "immunosensor", "antibody immobilization"],
+    "title": "Antibody-functionalised screen-printed electrode immunosensor fabrication",
+    "source": "Nature Protocols",
+    "link": "https://www.nature.com/articles/nprot.2017.115",
+    "summary": "Protocol for SAM-based antibody immobilisation on gold screen-printed electrodes with EIS and CV characterisation."
+  },
+  {
+    "keywords": ["lateral flow", "immunochromatography", "rapid test", "point of care"],
+    "title": "Lateral flow immunoassay strip fabrication and testing",
+    "source": "Bio-protocol",
+    "link": "https://bio-protocol.org/e3717",
+    "summary": "Step-by-step lateral flow strip assembly with colloidal gold conjugation and test/control line optimisation."
+  },
+  {
+    "keywords": ["hela", "cell culture", "trypsinisation", "subculture"],
+    "title": "Routine HeLa cell culture and subculturing",
+    "source": "OpenWetWare",
+    "link": "https://openwetware.org/wiki/HeLa_cells",
+    "summary": "EMEM + 10% FBS, subculture at 80% confluence with 0.25% trypsin-EDTA, freeze in 90% medium + 10% DMSO."
+  },
+  {
+    "keywords": ["lactobacillus rhamnosus", "probiotic", "gavage", "mouse dosing"],
+    "title": "Oral gavage administration of probiotic bacteria to mice",
+    "source": "Bio-protocol",
+    "link": "https://bio-protocol.org/e2701",
+    "summary": "Daily oral gavage protocol for live Lactobacillus species (1e8–1e9 CFU) in C57BL/6 mice, with welfare considerations."
+  },
+  {
+    "keywords": ["dss colitis", "induced colitis", "mouse model"],
+    "title": "DSS-induced colitis mouse model",
+    "source": "Nature Protocols",
+    "link": "https://www.nature.com/articles/nprot.2017.044",
+    "summary": "Standardised DSS dosing, water administration, and disease activity index scoring for mouse colitis studies."
+  },
+  {
+    "keywords": ["hplc", "acetate", "short chain fatty acid", "scfa"],
+    "title": "HPLC quantification of short-chain fatty acids (acetate, propionate, butyrate)",
+    "source": "Bio-protocol",
+    "link": "https://bio-protocol.org/e3370",
+    "summary": "Ion-exclusion HPLC with refractive index detection for SCFA quantification from microbial cultures and gut samples."
+  },
+  {
+    "keywords": ["impedance spectroscopy", "eis"],
+    "title": "Electrochemical impedance spectroscopy of biofunctionalised electrodes",
+    "source": "JOVE",
+    "link": "https://www.jove.com/t/52524",
+    "summary": "EIS measurement protocol for antibody-functionalised electrodes with equivalent-circuit fitting."
+  },
+  {
+    "keywords": ["arrive", "animal study reporting", "in vivo", "mouse experiment"],
+    "title": "ARRIVE 2.0 guidelines for in vivo experiment design and reporting",
+    "source": "OpenWetWare / NC3Rs",
+    "link": "https://www.nc3rs.org.uk/arrive-guidelines",
+    "summary": "Sample size justification, randomisation, blinding, and reporting standards for animal experiments."
+  }
+]

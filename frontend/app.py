@@ -1,5 +1,5 @@
 import json
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import httpx
 import pandas as pd
@@ -41,6 +41,8 @@ NOVELTY_COLOR = {
 
 SOURCE_LABEL = {
     "api:arxiv": "Live API · arXiv",
+    "api:europepmc": "Live API · Europe PMC",
+    "api:openalex": "Live API · OpenAlex",
     "api:crossref": "Live API · CrossRef",
     "local_fallback": "Fallback · Local corpus",
 }
@@ -51,6 +53,48 @@ def post(backend: str, path: str, payload: Dict[str, Any], timeout: float = 90.0
     r = httpx.post(url, json=payload, timeout=timeout)
     r.raise_for_status()
     return r.json()
+
+
+def post_bytes(backend: str, path: str, payload: Dict[str, Any], timeout: float = 60.0) -> bytes:
+    url = backend.rstrip("/") + path
+    r = httpx.post(url, json=payload, timeout=timeout)
+    r.raise_for_status()
+    return r.content
+
+
+def render_validation(v: Dict, on_use_suggested):
+    score = float(v.get("score", 0.0))
+    status = v.get("status", "ok")
+    if status == "ok":
+        st.success(f"Hypothesis quality: {score:.0%} — ready to proceed.")
+        return
+    color = "#d97706"
+    st.markdown(
+        f"<div style='padding:14px;border-radius:10px;background:{color};color:white;"
+        f"font-weight:600;font-size:15px;'>"
+        f"Hypothesis quality: {score:.0%} — needs revision</div>",
+        unsafe_allow_html=True,
+    )
+    cols = st.columns(2)
+    with cols[0]:
+        st.markdown("**Issues**")
+        for i in v.get("issues", []):
+            st.markdown(f"- {i}")
+    with cols[1]:
+        st.markdown("**Suggestions**")
+        for s in v.get("suggestions", []):
+            st.markdown(f"- {s}")
+    improved = v.get("improved_hypothesis") or ""
+    if improved:
+        st.markdown("**Suggested rewrite**")
+        st.info(improved)
+        st.button(
+            "Use suggested rewrite",
+            on_click=on_use_suggested,
+            args=(improved,),
+            type="primary",
+            key="use_suggested_btn",
+        )
 
 
 def render_qc(qc: Dict):
@@ -71,7 +115,6 @@ def render_qc(qc: Dict):
             f"font-weight:500;'>Source: {source}</div>",
             unsafe_allow_html=True,
         )
-
     st.markdown("#### Top references")
     papers = qc.get("papers") or []
     if not papers:
@@ -92,12 +135,33 @@ def render_qc(qc: Dict):
                     st.write(p["abstract"])
 
 
+def render_protocols(protocols: list[Dict]):
+    if not protocols:
+        return
+    st.markdown("#### Related protocols")
+    for i, pr in enumerate(protocols, 1):
+        with st.container(border=True):
+            link = pr.get("link") or ""
+            title = pr.get("title", "Untitled")
+            label = f"**PR{i}.** {title}"
+            if link:
+                label += f"  ·  [open]({link})"
+            st.markdown(label)
+            src = pr.get("source") or ""
+            if src:
+                st.caption(src)
+            if pr.get("summary"):
+                st.write(pr["summary"])
+
+
 def render_plan(plan: Dict):
     tabs = st.tabs(["Protocol", "Materials", "Budget", "Timeline", "Validation", "Raw JSON"])
 
     with tabs[0]:
         for step in plan.get("protocol", []):
-            with st.expander(f"Step {step.get('step', '?')} · {step.get('title', '')}  ({step.get('duration', '')})"):
+            with st.expander(
+                f"Step {step.get('step', '?')} · {step.get('title', '')}  ({step.get('duration', '')})"
+            ):
                 st.write(step.get("description", ""))
                 refs = step.get("references") or []
                 if refs:
@@ -107,7 +171,19 @@ def render_plan(plan: Dict):
         materials = plan.get("materials", [])
         if materials:
             df = pd.DataFrame(materials)
-            st.dataframe(df, use_container_width=True, hide_index=True)
+            preferred = ["name", "supplier", "catalog", "quantity", "unit_cost_usd", "url"]
+            cols = [c for c in preferred if c in df.columns] + [
+                c for c in df.columns if c not in preferred
+            ]
+            st.dataframe(
+                df[cols],
+                use_container_width=True,
+                hide_index=True,
+                column_config={
+                    "url": st.column_config.LinkColumn("url"),
+                    "unit_cost_usd": st.column_config.NumberColumn("unit_cost_usd", format="$%.0f"),
+                },
+            )
         else:
             st.info("No materials listed.")
 
@@ -170,28 +246,120 @@ def render_plan(plan: Dict):
         st.code(json.dumps(plan, indent=2), language="json")
 
 
+def render_review_panel(backend: str, hypothesis: str, parsed: Optional[Dict],
+                        plan: Dict):
+    st.markdown("---")
+    with st.expander("📝 Review this plan (helps the model improve next time)", expanded=False):
+        sections = ["protocol", "materials", "budget", "timeline", "validation", "overall"]
+        items: list[dict] = []
+        for sec in sections:
+            cols = st.columns([1, 2, 3])
+            with cols[0]:
+                st.markdown(f"**{sec}**")
+            with cols[1]:
+                rating = st.slider(
+                    f"rating_{sec}", 1, 5, 3,
+                    label_visibility="collapsed", key=f"rating_{sec}",
+                )
+            with cols[2]:
+                correction = st.text_input(
+                    f"correction_{sec}",
+                    placeholder="What was wrong / what should it have been?",
+                    label_visibility="collapsed", key=f"corr_{sec}",
+                )
+            if correction.strip() or rating != 3:
+                items.append({
+                    "section": sec,
+                    "rating": rating,
+                    "correction": correction,
+                    "comment": "",
+                })
+        comment = st.text_area("Overall comment (optional)",
+                                key="overall_comment", height=80)
+        if comment.strip():
+            items.append({"section": "overall", "rating": None,
+                          "correction": "", "comment": comment})
+
+        if st.button("Submit feedback", type="primary", key="submit_feedback_btn"):
+            if not items:
+                st.warning("No changes captured — adjust a rating or write a correction first.")
+            else:
+                try:
+                    resp = post(backend, "/feedback", {
+                        "hypothesis": hypothesis,
+                        "parsed": parsed,
+                        "plan": plan,
+                        "items": items,
+                    })
+                    st.toast(f"Feedback stored ({resp.get('stored', 0)} items)", icon="✅")
+                except Exception as e:
+                    st.error(f"Feedback submission failed: {e}")
+
+
+def render_pdf_button(backend: str, hypothesis: str, parsed: Optional[Dict],
+                      qc: Optional[Dict], plan: Dict):
+    try:
+        pdf_bytes = post_bytes(backend, "/export_pdf", {
+            "hypothesis": hypothesis,
+            "parsed": parsed,
+            "qc": qc,
+            "plan": plan,
+        }, timeout=60)
+    except Exception as e:
+        st.warning(f"PDF generation failed: {e}")
+        return
+    st.download_button(
+        label="📄 Download experiment plan (PDF)",
+        data=pdf_bytes,
+        file_name="experiment-plan.pdf",
+        mime="application/pdf",
+        use_container_width=True,
+    )
+
+
+# ─── Session state ────────────────────────────────────────────────────────────
+
+if "hypothesis" not in st.session_state:
+    st.session_state.hypothesis = list(SAMPLES.values())[0]
+if "last_run" not in st.session_state:
+    st.session_state.last_run = None  # holds {parsed, qc, plan}
+
+
+def _on_sample_change():
+    st.session_state.hypothesis = SAMPLES[st.session_state.sample_label]
+    st.session_state.last_run = None
+
+
+def _use_suggested(text: str):
+    st.session_state.hypothesis = text
+    st.session_state.last_run = None
+
+
 # ─── UI ───────────────────────────────────────────────────────────────────────
 
 st.title("🧪 The AI Scientist")
-st.caption("Hypothesis → Literature QC → Operationally complete experiment plan")
+st.caption("Hypothesis → Quality check → Literature QC → Operationally complete experiment plan")
 
 with st.sidebar:
     st.subheader("Settings")
     backend = st.text_input("Backend URL", value=DEFAULT_BACKEND)
     show_parsed = st.checkbox("Show parsed hypothesis", value=True)
+    skip_validation = st.checkbox("Skip hypothesis quality gate", value=False)
 
 st.markdown("##### 1. Choose or write a hypothesis")
-sample_label = st.radio(
+st.radio(
     "Sample hypotheses",
     options=list(SAMPLES.keys()),
     horizontal=True,
     label_visibility="collapsed",
+    key="sample_label",
+    on_change=_on_sample_change,
 )
 hypothesis = st.text_area(
     "Hypothesis",
-    value=SAMPLES[sample_label],
     height=140,
     label_visibility="collapsed",
+    key="hypothesis",
 )
 
 run = st.button("Run analysis", type="primary", use_container_width=True)
@@ -211,33 +379,73 @@ if run and hypothesis.strip():
         with st.expander("Parsed hypothesis", expanded=False):
             st.json(parsed_payload)
 
-    qc_status = st.status("Running literature QC…", expanded=False)
-    try:
-        qc = post(backend, "/literature_qc",
-                  {"hypothesis": hypothesis, "parsed": parsed_payload}, timeout=60)
-        qc_status.update(label="Literature QC complete", state="complete")
-    except Exception as e:
-        qc_status.update(label=f"Literature QC failed: {e}", state="error")
-        st.stop()
+    proceed = True
+    if not skip_validation:
+        val_status = st.status("Validating hypothesis quality…", expanded=False)
+        try:
+            validation = post(backend, "/validate_hypothesis",
+                              {"hypothesis": hypothesis, "parsed": parsed_payload}, timeout=60)
+            val_status.update(label=f"Quality {validation.get('score', 0):.0%}",
+                              state="complete")
+        except Exception as e:
+            val_status.update(label=f"Validation failed: {e}", state="error")
+            validation = None
+        if validation:
+            st.markdown("##### Hypothesis quality")
+            render_validation(validation, _use_suggested)
+            if validation.get("status") != "ok":
+                st.warning(
+                    "Click **Use suggested rewrite** to retry, edit the text above, "
+                    "or tick *Skip hypothesis quality gate* in the sidebar to proceed anyway."
+                )
+                proceed = False
 
-    st.markdown("---")
-    st.markdown("##### 2. Literature QC")
-    render_qc(qc)
+    if proceed:
+        qc_status = st.status("Running literature QC…", expanded=False)
+        try:
+            qc = post(backend, "/literature_qc",
+                      {"hypothesis": hypothesis, "parsed": parsed_payload}, timeout=60)
+            qc_status.update(label="Literature QC complete", state="complete")
+        except Exception as e:
+            qc_status.update(label=f"Literature QC failed: {e}", state="error")
+            st.stop()
 
-    plan_status = st.status("Generating experiment plan…", expanded=False)
-    try:
-        plan = post(
-            backend, "/generate_plan",
-            {"hypothesis": hypothesis, "parsed": parsed_payload, "papers": qc.get("papers", [])},
-            timeout=180,
-        )
-        plan_status.update(label="Plan ready", state="complete")
-    except Exception as e:
-        plan_status.update(label=f"Plan generation failed: {e}", state="error")
-        st.stop()
+        st.markdown("---")
+        st.markdown("##### 2. Literature QC")
+        render_qc(qc)
 
-    st.markdown("---")
-    st.markdown("##### 3. Experiment Plan")
-    render_plan(plan)
+        plan_status = st.status("Generating experiment plan…", expanded=False)
+        try:
+            plan = post(
+                backend, "/generate_plan",
+                {"hypothesis": hypothesis, "parsed": parsed_payload, "papers": qc.get("papers", [])},
+                timeout=240,
+            )
+            plan_status.update(label="Plan ready", state="complete")
+        except Exception as e:
+            plan_status.update(label=f"Plan generation failed: {e}", state="error")
+            st.stop()
+
+        st.session_state.last_run = {
+            "parsed": parsed_payload, "qc": qc, "plan": plan,
+        }
+
+        st.markdown("---")
+        st.markdown("##### 3. Experiment Plan")
+        render_protocols(plan.get("protocols_used") or [])
+        render_plan(plan)
+        render_pdf_button(backend, hypothesis, parsed_payload, qc, plan)
+        render_review_panel(backend, hypothesis, parsed_payload, plan)
 elif run:
     st.warning("Hypothesis cannot be empty.")
+elif st.session_state.last_run:
+    last = st.session_state.last_run
+    st.markdown("---")
+    st.markdown("##### Last result")
+    render_qc(last["qc"])
+    render_protocols(last["plan"].get("protocols_used") or [])
+    render_plan(last["plan"])
+    render_pdf_button(backend, st.session_state.hypothesis,
+                      last["parsed"], last["qc"], last["plan"])
+    render_review_panel(backend, st.session_state.hypothesis,
+                        last["parsed"], last["plan"])
